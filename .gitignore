@@ -1,0 +1,12 @@
+/backend/.idea/
+/backend/node_modules/
+/mobile/.bundle/
+/mobile/.idea/
+/mobile/__tests__/
+/mobile/android/
+/mobile/ios/
+/mobile/node_modules/
+/.idea/prettier.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/vcs.xml
+/.idea/workspace.xml
