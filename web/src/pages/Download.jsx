@@ -23,9 +23,6 @@ export default function Download() {
         {files.map((file) => (
           <DownloadItem id={file}/>
         ))}
-        {/*<DownloadItem id={"test.t xt"}></DownloadItem>*/}
-        {/*<DownloadItem id={"test.txt"}></DownloadItem>*/}
-        {/*<DownloadItem id={"test.txt"}></DownloadItem>*/}
       </div>
     </>
   )
