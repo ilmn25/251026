@@ -9,9 +9,7 @@ export default function FileUploadButton({ onFilePicked } : {onFilePicked: (uri:
   const handleFileUpload = async () => {
     const [file] = await pick({ mode: 'import' });
     onFilePicked(file.uri);
-    handleFilePicked(file);
-  };
-  const handleFilePicked = async (file: any) => {
+
     const formData = new FormData();
     formData.append('file', {
       uri: file.uri,
@@ -28,7 +26,7 @@ export default function FileUploadButton({ onFilePicked } : {onFilePicked: (uri:
         },
       });
 
-      const result = await res.json();
+      await res.json();
       Alert.alert('File Uploaded', `Name: ${file.name}\nType: ${file.type}`);
     } catch (err) {
       console.error('Upload failed:', err);

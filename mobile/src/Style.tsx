@@ -28,7 +28,8 @@ const style = StyleSheet.create({
     backgroundColor: '#000',
     paddingVertical: 12,
     paddingHorizontal: 24,
-    borderRadius: 8,
+    borderRadius: 5,
+    width: '100%',
   },
   buttonText: {
     color: '#fff',

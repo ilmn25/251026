@@ -6,7 +6,7 @@ import AboutScreen from './AboutScreen.tsx';
 import DownloadScreen from './DownloadScreen.tsx';
 const Stack = createNativeStackNavigator();
 
-export const BACKEND_URL = 'https://untractable-genie-dreary.ngrok-free.dev';
+export { BACKEND_URL } from "../../URL";
 
 export default function App(){
   return (
