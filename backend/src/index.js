@@ -23,7 +23,7 @@ app.use(express.static(path.join(ROOTPATH, 'web/dist')));
 app.use(express.static(DATA_PATH));
 
 app.use(cors({
-  origin: 'http://localhost:5174', // your frontend origin
+  origin: '*', // your frontend origin
   methods: ['GET', 'POST'],
 }));
 
@@ -72,7 +72,7 @@ app.get('/download', (req, res) => {
 
 // start ngrok tunnel
 const { exec } = require('child_process');
-exec('ngrok http 80', (error, stdout, stderr) => {
+exec('ngrok http 80' , (error, stdout) => {
   console.log(`ngrok output:\n${stdout}`);
 });
 

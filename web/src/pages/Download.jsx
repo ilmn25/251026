@@ -6,13 +6,17 @@ export default function Download() {
   const [files, setFiles] = useState([]);
 
   useEffect(() => {
-    fetch(`${BACKEND_URL}/download`)
+    fetch(`${BACKEND_URL}/download`, {
+      headers: {
+        'ngrok-skip-browser-warning': 'true'
+      }
+    })
       .then(res => res.json())
       .then(data => {
         setFiles(data.files);
       })
       .catch(() => {
-        console.error('Failed to fetch file list!');
+        console.error(`failed to fetch list at ${BACKEND_URL}/download`);
       });
   }, []);
 
@@ -20,8 +24,8 @@ export default function Download() {
     <>
       <h1>Download</h1>
       <div className="button-list">
-        {files.map((file) => (
-          <DownloadItem id={file}/>
+        {files.map((file, index) => (
+          <DownloadItem key={index} id={file}/>
         ))}
       </div>
     </>
