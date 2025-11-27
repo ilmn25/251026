@@ -6,7 +6,8 @@ const fs = require('fs');
 const app = express();
 const PORT = 80;
 const ROOTPATH = path.resolve(__dirname, '../../');
-const { BACKEND_URL, DATA_PATH, PASSWORD } = require('../../URL.js');
+const { BACKEND_URL, DATA_PATH } = require('../../URL.js');
+let PASSWORD;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -15,20 +16,44 @@ const storage = multer.diskStorage({
     cb(null, DATA_PATH);
   },
   filename: (req, file, cb) => {
-    cb(null, decodeURIComponent(file.originalname));
+    cb(null, path.basename(decodeURIComponent(file.originalname)));
   }
 }); // dont remove
 const upload = multer({ storage });
 
 app.use(express.static(path.join(ROOTPATH, 'web/dist')));
-app.use(express.static(DATA_PATH));
 
 app.use(cors({
   origin: '*',
   methods: ['GET', 'POST'],
 }));
 
-// ==================================
+// ====================================================================================
+// start ngrok tunnel
+const { exec } = require('child_process');
+exec('ngrok http 80' , (error, stdout) => {
+  console.log(`ngrok output:\n${stdout}`);
+});
+
+const readline = require('readline');
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+rl.question('Set password: ', (answer) => {
+  PASSWORD = answer;
+  rl.close();
+
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server running at ${BACKEND_URL}`);
+    console.log(`Server Storage at ${DATA_PATH}`);
+    console.log(`Password set successfully`);
+  });
+});
+
+// ====================================================================================
+
 function security(req, res, next) {
   const provided = req.headers['password'] || req.query.password;
   if (provided === PASSWORD) next();
@@ -81,15 +106,3 @@ app.get('/download', security, (req, res) => {
 });
 
 // ====================================================================================
-
-// start ngrok tunnel
-const { exec } = require('child_process');
-exec('ngrok http 80' , (error, stdout) => {
-  console.log(`ngrok output:\n${stdout}`);
-});
-
-// start localhost
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server running at ` + BACKEND_URL);
-  console.log(`Server Storage at ` + DATA_PATH);
-});
