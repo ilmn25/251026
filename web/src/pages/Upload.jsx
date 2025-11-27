@@ -1,6 +1,6 @@
 ﻿import '../App.css'
 import {useRef, useState} from "react";
-import {BACKEND_URL} from "../App.jsx";
+import {BACKEND_URL} from "../main.jsx";
 
 export default function Upload() {
   const [files, setFiles] = useState([]);
@@ -46,7 +46,7 @@ function UploadItem({ file }) {
     formData.append('file', file);
 
     try {
-      const response = await fetch(`${BACKEND_URL}/upload`, {
+      const response = await fetch(`${BACKEND_URL}/upload?password=${encodeURIComponent(sessionStorage.getItem("password"))}`, {
         method: 'POST',
         body: formData,
       });

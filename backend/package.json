@@ -6,6 +6,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bin": "src/index.js",
   "packageManager": "pnpm@10.19.0",
   "dependencies": {
     "cors": "^2.8.5",

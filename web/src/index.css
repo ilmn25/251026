@@ -13,6 +13,19 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+input {
+    width: 300px;              /* consistent width */
+    padding: 10px 14px;        /* inner spacing */
+    font-size: 16px;           /* readable text */
+    font-weight: bold;
+    border: 2px solid #ccc;    /* subtle border */
+    border-radius: 6px;        /* rounded corners */
+    outline: none;             /* remove default outline */
+    transition: border-color 0.3s, box-shadow 0.3s;
+    margin: 8px 0;             /* spacing between inputs */
+    box-sizing: border-box;    /* include padding in width */
+}
+
 a {
     font-weight: 500;
     color: #646cff;

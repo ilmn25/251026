@@ -1,12 +1,12 @@
 ﻿import '../App.css'
 import {useEffect, useState} from "react";
-import {BACKEND_URL} from "../App.jsx";
+import {BACKEND_URL} from "../main.jsx";
 
 export default function Download() {
   const [files, setFiles] = useState([]);
 
   useEffect(() => {
-    fetch(`${BACKEND_URL}/download`, {
+    fetch(`${BACKEND_URL}/download?password=${encodeURIComponent(sessionStorage.getItem("password"))}`, {
       headers: {
         'ngrok-skip-browser-warning': 'true'
       }
@@ -38,7 +38,7 @@ function DownloadItem({ id }) {
   function download() {
     setButtonText('Downloading...');
     const link = document.createElement('a');
-    link.href = `${BACKEND_URL}/download?file=${encodeURIComponent(id)}`
+    link.href = `${BACKEND_URL}/download?file=${encodeURIComponent(id)}&password=${encodeURIComponent(sessionStorage.getItem("password"))}`;
     link.download = id;
     document.body.appendChild(link);
     link.click();
